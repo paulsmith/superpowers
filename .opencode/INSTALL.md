@@ -3,14 +3,14 @@
 ## Prerequisites
 
 - [OpenCode.ai](https://opencode.ai) installed
-- Git installed
+- jj (Jujutsu) or Git installed
 
 ## Installation Steps
 
 ### 1. Clone Superpowers
 
 ```bash
-git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
+jj git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
 ```
 
 ### 2. Register the Plugin
@@ -88,7 +88,7 @@ Create project-specific skills in `.opencode/skills/` within your project.
 
 ```bash
 cd ~/.config/opencode/superpowers
-git pull
+jj git fetch --remote origin && jj rebase -d main@origin
 ```
 
 ## Troubleshooting
