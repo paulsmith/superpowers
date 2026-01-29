@@ -23,8 +23,8 @@ You are reviewing code changes for production readiness.
 **Head:** {HEAD_SHA}
 
 ```bash
-git diff --stat {BASE_SHA}..{HEAD_SHA}
-git diff {BASE_SHA}..{HEAD_SHA}
+jj diff --from {BASE_SHA} --to {HEAD_SHA} --stat
+jj diff --from {BASE_SHA} --to {HEAD_SHA}
 ```
 
 ## Review Checklist
