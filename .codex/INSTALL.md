@@ -6,9 +6,7 @@ Quick setup to enable superpowers skills in Codex.
 
 1. **Clone superpowers repository**:
    ```bash
-   mkdir -p ~/.codex/superpowers
-   cd ~/.codex/superpowers
-   git clone https://github.com/obra/superpowers.git .
+   jj git clone https://github.com/obra/superpowers.git ~/.codex/superpowers
    ```
 
 2. **Create personal skills directory**:
