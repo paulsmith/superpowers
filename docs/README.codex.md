@@ -15,13 +15,13 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 ### Prerequisites
 
 - OpenAI Codex CLI
-- Git
+- jj (Jujutsu VCS)
 
 ### Steps
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/obra/superpowers.git ~/.codex/superpowers
+   jj git clone https://github.com/obra/superpowers.git ~/.codex/superpowers
    ```
 
 2. Create the skills symlink:
@@ -90,7 +90,7 @@ The `description` field is how Codex decides when to activate a skill automatica
 ## Updating
 
 ```bash
-cd ~/.codex/superpowers && git pull
+cd ~/.codex/superpowers && jj git fetch --remote origin
 ```
 
 Skills update instantly through the symlink.

@@ -7,7 +7,7 @@ Complete guide for using Superpowers with [OpenCode.ai](https://opencode.ai).
 Tell OpenCode:
 
 ```
-Clone https://github.com/obra/superpowers to ~/.config/opencode/superpowers, then create directory ~/.config/opencode/plugins, then symlink ~/.config/opencode/superpowers/.opencode/plugins/superpowers.js to ~/.config/opencode/plugins/superpowers.js, then symlink ~/.config/opencode/superpowers/skills to ~/.config/opencode/skills/superpowers, then restart opencode.
+Clone https://github.com/obra/superpowers to ~/.config/opencode/superpowers using jj git clone, then create directory ~/.config/opencode/plugins, then symlink ~/.config/opencode/superpowers/.opencode/plugins/superpowers.js to ~/.config/opencode/plugins/superpowers.js, then symlink ~/.config/opencode/superpowers/skills to ~/.config/opencode/skills/superpowers, then restart opencode.
 ```
 
 ## Manual Installation
@@ -15,16 +15,16 @@ Clone https://github.com/obra/superpowers to ~/.config/opencode/superpowers, the
 ### Prerequisites
 
 - [OpenCode.ai](https://opencode.ai) installed
-- Git installed
+- jj (Jujutsu) or Git installed
 
 ### macOS / Linux
 
 ```bash
 # 1. Install Superpowers (or update existing)
 if [ -d ~/.config/opencode/superpowers ]; then
-  cd ~/.config/opencode/superpowers && git pull
+  cd ~/.config/opencode/superpowers && jj git fetch --remote origin && jj rebase -d main@origin
 else
-  git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
+  jj git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
 fi
 
 # 2. Create directories
@@ -66,7 +66,7 @@ Run as Administrator, or with Developer Mode enabled:
 
 ```cmd
 :: 1. Install Superpowers
-git clone https://github.com/obra/superpowers.git "%USERPROFILE%\.config\opencode\superpowers"
+jj git clone https://github.com/obra/superpowers.git "%USERPROFILE%\.config\opencode\superpowers"
 
 :: 2. Create directories
 mkdir "%USERPROFILE%\.config\opencode\plugins" 2>nul
@@ -91,7 +91,7 @@ Run as Administrator, or with Developer Mode enabled:
 
 ```powershell
 # 1. Install Superpowers
-git clone https://github.com/obra/superpowers.git "$env:USERPROFILE\.config\opencode\superpowers"
+jj git clone https://github.com/obra/superpowers.git "$env:USERPROFILE\.config\opencode\superpowers"
 
 # 2. Create directories
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode\plugins"
@@ -116,7 +116,7 @@ Note: Git Bash's native `ln` command copies files instead of creating symlinks. 
 
 ```bash
 # 1. Install Superpowers
-git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
+jj git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
 
 # 2. Create directories
 mkdir -p ~/.config/opencode/plugins ~/.config/opencode/skills
@@ -163,8 +163,8 @@ Look for `<SYMLINK>` or `<JUNCTION>` in the output.
 **"Cannot create a file when that file already exists":**
 - Run the removal commands (step 3) first, then retry
 
-**Symlinks not working after git clone:**
-- Run `git config --global core.symlinks true` and re-clone
+**Symlinks not working after clone:**
+- For git backend: run `git config --global core.symlinks true` and re-clone
 
 ## Usage
 
@@ -274,7 +274,7 @@ Skills are discovered by OpenCode's native skill system. Each skill has a `SKILL
 
 ```bash
 cd ~/.config/opencode/superpowers
-git pull
+jj git fetch --remote origin && jj rebase -d main@origin
 ```
 
 Restart OpenCode to load the updates.

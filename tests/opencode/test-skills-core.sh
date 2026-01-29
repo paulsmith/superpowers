@@ -366,15 +366,12 @@ fi
 echo ""
 echo "Test 5: Testing checkForUpdates..."
 
-# Create a test git repo
+# Create a test jj repo
 mkdir -p "$TEST_HOME/test-repo"
 cd "$TEST_HOME/test-repo"
-git init --quiet
-git config user.email "test@test.com"
-git config user.name "Test"
+jj git init --colocate
+jj desc -m "initial"
 echo "test" > file.txt
-git add file.txt
-git commit -m "initial" --quiet
 cd "$SCRIPT_DIR"
 
 # Test checkForUpdates on repo without remote (should return false, not error)
@@ -383,19 +380,19 @@ const { execSync } = require('child_process');
 
 function checkForUpdates(repoDir) {
     try {
-        const output = execSync('git fetch origin && git status --porcelain=v1 --branch', {
+        execSync('jj git fetch --remote origin', {
             cwd: repoDir,
             timeout: 3000,
             encoding: 'utf8',
             stdio: 'pipe'
         });
-        const statusLines = output.split('\n');
-        for (const line of statusLines) {
-            if (line.startsWith('## ') && line.includes('[behind ')) {
-                return true;
-            }
-        }
-        return false;
+        const output = execSync('jj log -r \"main..main@origin\" --no-graph -T \"change_id\" --limit 1', {
+            cwd: repoDir,
+            timeout: 3000,
+            encoding: 'utf8',
+            stdio: 'pipe'
+        });
+        return output.trim().length > 0;
     } catch (error) {
         return false;
     }
@@ -409,9 +406,9 @@ console.log('NO_REMOTE:', result1);
 const result2 = checkForUpdates('$TEST_HOME/nonexistent');
 console.log('NONEXISTENT:', result2);
 
-// Test 3: Non-git directory should return false
+// Test 3: Non-jj directory should return false
 const result3 = checkForUpdates('$TEST_HOME');
-console.log('NOT_GIT:', result3);
+console.log('NOT_JJ:', result3);
 " 2>&1)
 
 if echo "$result" | grep -q 'NO_REMOTE: false'; then
@@ -429,10 +426,10 @@ else
     exit 1
 fi
 
-if echo "$result" | grep -q 'NOT_GIT: false'; then
-    echo "  [PASS] checkForUpdates handles non-git directory"
+if echo "$result" | grep -q 'NOT_JJ: false'; then
+    echo "  [PASS] checkForUpdates handles non-jj directory"
 else
-    echo "  [FAIL] checkForUpdates should return false for non-git directory"
+    echo "  [FAIL] checkForUpdates should return false for non-jj directory"
     exit 1
 fi
 

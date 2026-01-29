@@ -4,13 +4,13 @@ Enable superpowers skills in Codex via native skill discovery. Just clone and sy
 
 ## Prerequisites
 
-- Git
+- jj (Jujutsu VCS)
 
 ## Installation
 
 1. **Clone the superpowers repository:**
    ```bash
-   git clone https://github.com/obra/superpowers.git ~/.codex/superpowers
+   jj git clone https://github.com/obra/superpowers.git ~/.codex/superpowers
    ```
 
 2. **Create the skills symlink:**
@@ -33,7 +33,7 @@ If you installed superpowers before native skill discovery, you need to:
 
 1. **Update the repo:**
    ```bash
-   cd ~/.codex/superpowers && git pull
+   cd ~/.codex/superpowers && jj git fetch --remote origin
    ```
 
 2. **Create the skills symlink** (step 2 above) — this is the new discovery mechanism.
@@ -53,7 +53,7 @@ You should see a symlink (or junction on Windows) pointing to your superpowers s
 ## Updating
 
 ```bash
-cd ~/.codex/superpowers && git pull
+cd ~/.codex/superpowers && jj git fetch --remote origin
 ```
 
 Skills update instantly through the symlink.
