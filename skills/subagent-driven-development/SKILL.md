@@ -97,15 +97,21 @@ Use the least powerful model that can handle each role to conserve cost and incr
 - Touches multiple files with integration concerns → standard model
 - Requires design judgment or broad codebase understanding → most capable model
 
-## Handling Escalation
+## Handling Implementer Status
 
-Implementer subagents may return with status BLOCKED or NEEDS_CONTEXT instead of DONE. This is expected and good - it means the implementer recognized the task was beyond its capability rather than producing bad work.
+Implementer subagents report one of four statuses. Handle each appropriately:
 
-**When an implementer escalates:**
-1. Assess whether more context would help - provide it and re-dispatch with the same model
-2. Re-dispatch with a more capable model if the task requires more reasoning
-3. Break the task into smaller, more tractable pieces
-4. Escalate to the human if the plan needs rethinking
+**DONE:** Proceed to spec compliance review.
+
+**DONE_WITH_CONCERNS:** The implementer completed the work but flagged doubts. Read the concerns before proceeding. If the concerns are about correctness or scope, address them before review. If they're observations (e.g., "this file is getting large"), note them and proceed to review.
+
+**NEEDS_CONTEXT:** The implementer needs information that wasn't provided. Provide the missing context and re-dispatch.
+
+**BLOCKED:** The implementer cannot complete the task. Assess the blocker:
+1. If it's a context problem, provide more context and re-dispatch with the same model
+2. If the task requires more reasoning, re-dispatch with a more capable model
+3. If the task is too large, break it into smaller pieces
+4. If the plan itself is wrong, escalate to the human
 
 **Never** ignore an escalation or force the same model to retry without changes. If the implementer said it's stuck, something needs to change.
 
