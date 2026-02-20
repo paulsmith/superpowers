@@ -7,6 +7,8 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 ## Overview
 
+Scale the plan to the task. A one-file change doesn't need the same plan as a new subsystem. When you believe steps can be safely elided, ask the user for permission — don't elide silently, and don't follow the full process rigidly when it doesn't serve the work.
+
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
@@ -110,7 +112,38 @@ git commit -m "feat: add specific feature"
 - Reference relevant skills with @ syntax
 - DRY, YAGNI, TDD, frequent commits
 
+## Process Flow
+
+```dot
+digraph writing_plans {
+    rankdir=TB;
+    node [shape=box];
+
+    announce [label="Announce skill usage"];
+    scope [label="Scope check"];
+    file_structure [label="Map file structure"];
+    write_tasks [label="Write bite-sized tasks\n(header, task structure, code)"];
+    review_needed [label="Review loop warranted?" shape=diamond];
+    ask_user [label="Ask user permission\nto elide review loop" shape=box];
+    user_says [label="User approves\neliding?" shape=diamond];
+    review_loop [label="Dispatch plan-document-reviewer\nper chunk; fix until ✅"];
+    save_plan [label="Save plan to\ndocs/superpowers/plans/"];
+    handoff [label="Execution handoff:\n\"Ready to execute?\""];
+
+    announce -> scope -> file_structure -> write_tasks -> review_needed;
+    review_needed -> review_loop [label="yes"];
+    review_needed -> ask_user [label="no — may be\noverkill"];
+    ask_user -> user_says;
+    user_says -> review_loop [label="no, do the review"];
+    user_says -> save_plan [label="yes, elide it"];
+    review_loop -> save_plan;
+    save_plan -> handoff;
+}
+```
+
 ## Plan Review Loop
+
+**GATE — Do not elide without permission.** For small, single-file changes, the review loop may be unnecessary. If you believe it can be safely elided, you MUST ask the user before proceeding without it. Do not silently skip the review loop. Do not treat this as optional. Present your reasoning and wait for the user's answer.
 
 After completing each chunk of the plan:
 
