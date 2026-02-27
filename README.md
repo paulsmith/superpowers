@@ -1,4 +1,6 @@
-# Superpowers
+# Superpowers (jj fork)
+
+> **This is a [jj (Jujutsu)](https://github.com/jj-vcs/jj)-adapted fork of [obra/superpowers](https://github.com/obra/superpowers).** All Git-specific commands and references in the skills have been converted to jj equivalents. The `jjify` branch contains the patch series on top of upstream. See the upstream repo for canonical documentation.
 
 Superpowers is a complete software development workflow for your coding agents, built on top of a set of composable "skills" and some initial instructions that make sure your agent uses them.
 
